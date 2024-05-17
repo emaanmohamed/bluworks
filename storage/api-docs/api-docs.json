@@ -1,0 +1,114 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Bluworks API",
+        "description": "API documentation for Bluworks",
+        "contact": {
+            "email": "support@bluworks.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/worker/clock-in": {
+            "post": {
+                "tags": [
+                    "ClockIn"
+                ],
+                "summary": "Clock in a worker",
+                "operationId": "8101720f0a989194795934496f9c509e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "worker_id",
+                                    "latitude",
+                                    "longitude",
+                                    "timestamp"
+                                ],
+                                "properties": {
+                                    "worker_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "latitude": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": 40.748817
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": -73.985428
+                                    },
+                                    "timestamp": {
+                                        "type": "string",
+                                        "format": "integer",
+                                        "example": 1715904000
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Clock in successful"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "403": {
+                        "description": "Clock in location not within valid range"
+                    },
+                    "500": {
+                        "description": "Server error"
+                    }
+                }
+            }
+        },
+        "/worker/clock-ins": {
+            "get": {
+                "tags": [
+                    "ClockIn"
+                ],
+                "summary": "Get clock-ins for a worker",
+                "operationId": "c6f92876ea1c1a5540ce01fd2542666c",
+                "parameters": [
+                    {
+                        "name": "worker_id",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    },
+                    "404": {
+                        "description": "No clock-ins found"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
