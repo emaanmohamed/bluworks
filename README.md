@@ -17,7 +17,6 @@ best practise for getting latitude and longitude to integrate with google but I 
         ]);
 
         $data = json_decode($response->getBody(), true);
-        dd($data);
         if ($data['status'] === 'OK') {
             $location = $data['results'][0]['geometry']['location'];
             dd($location);
